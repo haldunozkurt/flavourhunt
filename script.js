@@ -566,3 +566,4 @@ document.addEventListener('DOMContentLoaded', () => {
         gameOverScreen.style.display = 'flex';
     }
 });
+
