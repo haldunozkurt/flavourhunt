@@ -17,35 +17,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const images = {};
     const sounds = {};
     const imageSources = {
-        robotWalk1: 'walking_1.png',
-        robotWalk2: 'walking_2.png',
-        robotWalk3: 'walking_3.png',
-        robotJump: 'jumping_1.png',
-        robotLand: 'landing_1.png',
-        telephone: 'telephone.png',
-        wheelieBin: 'wheelie_bin.png',
-        burger: 'burger.png',
-        ramen: 'ramen.png',
-        background: 'background updated.png',
-        pavement: 'pavement updated 02.png',
-        foreground: 'foreground updated.png',
-        flash1: 'flash_1.png',
-        flash2: 'flash_2.png',
-        blackCab1: 'black_cab_1.png',
-        blackCab2: 'black_cab_2.png',
-        sandwich1: 'SANDWICH_1.png',
-        sandwich2: 'SANDWICH_2.png',
-        sandwich3: 'SANDWICH_3.png',
-        death1: 'death_1.png',
-        death2: 'death_2.png',
-        tukTuk1: 'tuk_tuk_1.png', 
-        tukTuk2: 'tuk_tuk_2.png'
+        robotWalk1: 'https://static.wixstatic.com/media/9a9184_306b204503a84fd09792f8d7097fe364~mv2.png',
+        robotWalk2: 'https://static.wixstatic.com/media/9a9184_1738f53d47554bb9b54eca4dbaa8fbd5~mv2.png',
+        robotWalk3: 'https://static.wixstatic.com/media/9a9184_bef7bee6f388459dae18ff87b8cc6e38~mv2.png',
+        robotJump: 'https://static.wixstatic.com/media/9a9184_be0bc1d670ce43c399ded721c24b5132~mv2.png',
+        robotLand: 'https://static.wixstatic.com/media/9a9184_a4d4719fefe14b31a5849d6a0cbe5345~mv2.png',
+        telephone: 'https://static.wixstatic.com/media/9a9184_60a87bc250e847089746d126012be4be~mv2.png',
+        wheelieBin: 'https://static.wixstatic.com/media/9a9184_1a0fae92e50948008971ef4d9e5e2445~mv2.png',
+        burger: 'https://static.wixstatic.com/media/9a9184_9fcc0f878ffe4d4da863990cc6cc6c9b~mv2.png',
+        ramen: 'https://static.wixstatic.com/media/9a9184_3bdb83bd23fa4d72b545f6bc9a4db5e5~mv2.png',
+        background: 'https://static.wixstatic.com/media/9a9184_ddccf762df954d958044b490fc6e3922~mv2.png',
+        pavement: 'https://static.wixstatic.com/media/9a9184_198559d79ebe4fb784af9fcbb6688874~mv2.png',
+        foreground: 'https://static.wixstatic.com/media/9a9184_dd793f62a4c0471c86a4877ed4fc4396~mv2.png',
+        flash1: 'https://static.wixstatic.com/media/9a9184_24391fddd6e54194b899ef0320d0ce14~mv2.png',
+        flash2: 'https://static.wixstatic.com/media/9a9184_0f920d002b7b4ac7940016e2d5a93be4~mv2.png',
+        blackCab1: 'https://static.wixstatic.com/media/9a9184_ac84917141a946a5ae253dcb96821be9~mv2.png',
+        blackCab2: 'https://static.wixstatic.com/media/9a9184_a125b0befcc24f79a154826f40fa953c~mv2.png',
+        sandwich1: 'https://static.wixstatic.com/media/9a9184_8f8124c13d314cca9306195f4f4d74e9~mv2.png',
+        sandwich2: 'https://static.wixstatic.com/media/9a9184_62d5fd8c649343cd81e4bfed9cccec8b~mv2.png',
+        sandwich3: 'https://static.wixstatic.com/media/9a9184_eac5b5b47d7f4ea6a39aae18d517493b~mv2.png',
+        death1: 'https://static.wixstatic.com/media/9a9184_0f3a5438df474c76b240c5ab26e323cf~mv2.png',
+        death2: 'https://static.wixstatic.com/media/9a9184_83ac456d210e46029ad8325ee211c0b4~mv2.png',
+        tukTuk1: 'https://static.wixstatic.com/media/9a9184_aa22482ca0384599b96cb17e68cba36c~mv2.png', 
+        tukTuk2: 'https://static.wixstatic.com/media/9a9184_3634928d8d0343d3a3dd16dcafc0e747~mv2.png'
     };
     const soundSources = {
-        ramenCollect: 'award_1.mp3',
-        burgerCollect: 'award_2.mp3',
-        backgroundMusic: 'banana music 01.wav',
-        negativeSound: 'negative.mp3'
+        ramenCollect: 'https://static.wixstatic.com/mp3/9a9184_51846c0a6c184fab8fa7ae53d6c9842a.mp3',
+        burgerCollect: 'https://static.wixstatic.com/mp3/9a9184_9f4bd31e941241dab16ea6e9dc76f3c1.mp3',
+        backgroundMusic: 'https://static.wixstatic.com/mp3/9a9184_8577fd225aea41bd8b1d8ad53c6f7868.wav',
+        negativeSound: 'https://static.wixstatic.com/mp3/9a9184_f939d00ba4e74483881da8d8c05d88fa.mp3'
     };
 
     let assetsLoaded = 0;
