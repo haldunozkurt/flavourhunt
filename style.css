@@ -8,18 +8,26 @@ body {
     font-family: 'Arial', sans-serif;
     color: white;
     flex-direction: column;
+    overflow: hidden; /* Stop scrolling on mobile */
 }
 
+/* === NEW MOBILE RESPONSIVE CONTAINER === */
 #gameContainer {
     position: relative;
     border: 2px solid #fff;
     border-radius: 8px;
     overflow: hidden; 
+    width: 100%;
+    max-width: 800px; /* Stop it getting too big on desktop */
+    aspect-ratio: 2 / 1; /* Force the shape to remain correct */
 }
 
 canvas {
     display: block;
     background-color: #87CEEB;
+    width: 100%;
+    height: 100%;
+    touch-action: none; /* Crucial: stops browser handling swipes */
 }
 
 #uiContainer {
@@ -35,83 +43,73 @@ canvas {
     pointer-events: none;
 }
 
-#startScreen, #gameOverScreen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
+/* Resize text on small screens */
+@media (max-width: 600px) {
+    #uiContainer { font-size: 16px; }
+    h1 { font-size: 28px; }
+    p { font-size: 14px; }
+    button { padding: 10px 20px; font-size: 16px; }
+}
+
+/* === ROTATE MESSAGE === */
+#rotateMessage {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #222;
+    z-index: 9999;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
+.rotate-content h1 { font-size: 60px; margin: 0; }
 
-/* === AMENDED SECTION START === */
+/* Show rotate message ONLY on portrait phones */
+@media screen and (orientation: portrait) and (max-width: 900px) {
+    #rotateMessage { display: flex; }
+    #gameContainer { display: none; }
+}
+
+/* === REST OF YOUR EXISTING CSS === */
+#startScreen, #gameOverScreen {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+}
+
 #startScreen {
     background-image: url('start-background.png');
     background-size: cover;
     background-position: center;
-    cursor: pointer; /* Indicates the screen is clickable */
+    cursor: pointer; 
 }
 
-/* The rules for #startScreen h1 and p have been removed. */
-/* === AMENDED SECTION END === */
-
-
-/* === CSS FOR VIDEO & GAME OVER SCREEN UPDATED HERE === */
-#gameOverScreen {
-    background-color: #000; /* Fallback for video */
-}
+#gameOverScreen { background-color: #000; }
 
 #endVideo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures video covers the screen without stretching */
-    z-index: 1; /* Places video in the background */
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: 1;
 }
 
 .overlay-content {
-    position: relative;
-    z-index: 2; /* Places text and button on top of the video */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-}
-/* =================================================== */
-
-h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-    text-shadow: 3px 3px 6px black;
+    position: relative; z-index: 2;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px; border-radius: 10px; width: 80%;
 }
 
-p {
-    font-size: 18px;
-    text-shadow: 2px 2px 4px black;
-}
+h1 { font-size: 48px; margin-bottom: 20px; text-shadow: 3px 3px 6px black; }
+p { font-size: 18px; text-shadow: 2px 2px 4px black; }
 
 button {
-    padding: 15px 30px;
-    font-size: 20px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
+    padding: 15px 30px; font-size: 20px; cursor: pointer;
+    border: none; border-radius: 5px;
     background: linear-gradient(145deg, #5cb85c, #4CAF50);
-    color: white;
-    font-weight: bold;
+    color: white; font-weight: bold;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
-    z-index: 5;
+    position: relative; z-index: 5;
 }
-
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0,0,0,0.3);
-}
+button:hover { transform: translateY(-2px); box-shadow: 0 6px 8px rgba(0,0,0,0.3); }
