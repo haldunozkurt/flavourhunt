@@ -10,9 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const finalScoreEl = document.getElementById('finalScore');
     
     const endVideo = document.getElementById('endVideo');
+
     const gameOverTitle = gameOverScreen.querySelector('h1');
     
-    // --- Asset Loader (KEPT EXACTLY THE SAME) ---
+    // --- Asset Loader ---
     const images = {};
     const sounds = {};
     const imageSources = {
@@ -52,10 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const numSounds = Object.keys(soundSources).length;
     const totalAssets = numImages + numSounds;
 
+    // We can display a simpler loading message now
     ctx.fillStyle = 'white';
     ctx.font = '30px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText('Loading...', canvas.width / 2, canvas.height / 2);
+    ctx.fillText('Loading...', canvas.width / 2, canvas.height / 2); // CHANGED
+
 
     for (const key in imageSources) {
         images[key] = new Image();
@@ -85,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillText(`Error loading: ${src}`, canvas.width / 2, canvas.height / 2);
     }
 
+
     // --- Game Variables & Constants ---
     const GRAVITY = 0.6;
     const JUMP_STRENGTH = -15;
@@ -96,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let collectionFlashes = [];
     
     let spawnQueue = [];
-    let isGameRunning = false; // State tracker
 
     class Layer {
         constructor(image, speedModifier) {
@@ -249,52 +252,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         
-        // --- MOBILE INPUT HANDLING REWRITE ---
-        // Instead of canvas.onclick, we listen to the whole document for touches
-        function handleInput(e) {
-            // If the game is running, taps make the player jump
-            if (isGameRunning && !isGameOver && player) {
-                // Prevent scrolling/zooming if they tap on the canvas area
-                if(e.target === canvas || e.target === document.body) {
-                    // e.preventDefault(); // Optional: uncomment if scrolling is an issue
-                }
+        startScreen.addEventListener('click', startCountdown, { once: true });
+        
+        restartButton.addEventListener('click', startGame);
+        canvas.addEventListener('click', () => {
+            if (!isGameOver && player) {
                 player.jump();
-            } 
-            // If we are on the start screen, taps start the game
-            else if (startScreen.style.display !== 'none') {
-                startCountdown();
             }
-        }
-
-        // Mouse click
-        document.addEventListener('click', handleInput);
-        // Touch (Mobile)
-        document.addEventListener('touchstart', (e) => {
-            // We pass the event to handleInput
-            handleInput(e);
-        }, { passive: false });
-        
-        // Spacebar support
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
-                handleInput(e);
-            }
-        });
-        
-        restartButton.addEventListener('click', (e) => {
-            e.stopPropagation(); // Stop this click from triggering a jump immediately
-            startGame();
-        });
-        restartButton.addEventListener('touchstart', (e) => {
-            e.stopPropagation();
-            startGame();
         });
     }
     
     function startCountdown() {
-        // Prevent double starts
-        if (isGameRunning) return;
-        
         startScreen.style.display = 'none';
         let count = 3;
         
@@ -519,13 +487,13 @@ document.addEventListener('DOMContentLoaded', () => {
         timer = 60; // CHANGED
         gameSpeed = GAME_SPEED;
         isGameOver = false;
-        isGameRunning = true; // NEW: track running state
         obstacles = [];
         foodItems = [];
         collectionFlashes = [];
         
-        // This old listener is removed in favor of the global handleInput
-        // if (startScreen.style.display !== 'flex') { ... } 
+        if (startScreen.style.display !== 'flex') {
+            startScreen.addEventListener('click', startCountdown, { once: true });
+        }
         
         endVideo.pause();
         endVideo.currentTime = 0;
@@ -562,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         sounds.backgroundMusic.loop = true;
         sounds.backgroundMusic.currentTime = 0;
-        sounds.backgroundMusic.play().catch(e => console.log("Audio play blocked until interaction"));
+        sounds.backgroundMusic.play();
 
         countdownInterval = setInterval(() => {
             timer--;
@@ -577,7 +545,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function endGame() {
         isGameOver = true;
-        isGameRunning = false;
         clearInterval(countdownInterval);
         cancelAnimationFrame(animationFrameId);
         
